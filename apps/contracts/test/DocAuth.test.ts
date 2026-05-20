@@ -27,7 +27,7 @@ describe("DocAuth", function () {
     await docAuth.waitForDeployment();
   });
 
-  // ─── Deployment ──────────────────────────────
+  //Deployment
 
   describe("Deployment", function () {
     it("should set the deployer as owner", async function () {
@@ -43,7 +43,7 @@ describe("DocAuth", function () {
     });
   });
 
-  // ─── Access Control ──────────────────────────
+  //Access Control
 
   describe("Access Control", function () {
     it("should allow owner to add an issuer", async function () {
@@ -83,7 +83,7 @@ describe("DocAuth", function () {
     });
   });
 
-  // ─── Issue Document ──────────────────────────
+  //Issue Document
 
   describe("issueDocument", function () {
     it("should issue a document successfully", async function () {
@@ -178,7 +178,7 @@ describe("DocAuth", function () {
     });
   });
 
-  // ─── Revoke Document ─────────────────────────
+  // Revoke Document
 
   describe("revokeDocument", function () {
     beforeEach(async function () {
