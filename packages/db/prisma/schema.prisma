@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Document {
+  id            String   @id @default(uuid())
+  fileHash      String   @unique
+  txHash        String?
+  name          String
+  rollNo        String
+  dateOfIssue   String
+  docType       String
+  institution   String
+  issuerAddress String
+  filePath      String?
+  revoked       Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([fileHash])
+}
+
+model VerificationLog {
+  id        String   @id @default(uuid())
+  fileHash  String
+  status    String
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([fileHash])
+}
