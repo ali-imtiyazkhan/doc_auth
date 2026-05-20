@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { processDocument } from "../services/ocr.js";
 import { hashFile } from "../services/hash.js";
+import { prisma } from "@repo/db";
 
 const router = Router();
 
@@ -54,6 +55,34 @@ router.post("/upload", upload.single("document"), async (req: Request, res: Resp
 
     // Generate file hash
     const fileHash = await hashFile(req.file.path);
+
+    // Save metadata in database with status pending (no txHash yet, issuerAddress placeholder)
+    try {
+      const relativePath = req.file.path.replace(process.cwd() + path.sep, "");
+      await prisma.document.upsert({
+        where: { fileHash },
+        update: {
+          name: metadata.name || "",
+          rollNo: metadata.rollNo || "",
+          dateOfIssue: metadata.dateOfIssue || "",
+          docType: metadata.docType || "Degree Certificate",
+          institution: metadata.institution || "",
+          filePath: relativePath,
+        },
+        create: {
+          fileHash,
+          name: metadata.name || "",
+          rollNo: metadata.rollNo || "",
+          dateOfIssue: metadata.dateOfIssue || "",
+          docType: metadata.docType || "Degree Certificate",
+          institution: metadata.institution || "",
+          issuerAddress: "", // Will be updated on blockchain registration
+          filePath: relativePath,
+        },
+      });
+    } catch (dbErr: any) {
+      console.warn("[Prisma] Failed to save uploaded document to DB:", dbErr.message);
+    }
 
     res.json({
       success: true,

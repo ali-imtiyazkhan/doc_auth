@@ -1,101 +1,109 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+import Link from "next/link";
+import { Shield, FileCheck, Landmark, ClipboardCheck, ArrowRight, Zap, Cpu, KeyRound } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div style={{ minHeight: "100vh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      {/* Glow Spots */}
+      <div className="glow-spot" />
+      <div className="glow-spot-secondary" />
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.dev/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
+      {/* Header / Nav */}
+      <header style={{ padding: "24px 40px", borderBottom: "1px solid var(--border-color)", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative", zIndex: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Shield size={28} color="var(--color-primary)" />
+          <span style={{ fontFamily: "var(--font-title)", fontWeight: 800, fontSize: "1.25rem", letterSpacing: "-0.02em" }}>
+            DocAuth
+          </span>
+        </div>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <Link href="/institution" className="btn btn-secondary" style={{ padding: "8px 16px", fontSize: "0.85rem" }}>
+            Institution Portal
+          </Link>
+          <a href="http://localhost:3001" className="btn btn-primary" style={{ padding: "8px 16px", fontSize: "0.85rem" }}>
+            Verifier Portal
           </a>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
+      </header>
+
+      {/* Main Hero Section */}
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "80px 20px", position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto" }}>
+        
+        <div className="animate-slide-up" style={{ textAlign: "center", maxWidth: "800px", marginBottom: "64px" }}>
+          {/* Badge */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(99, 102, 241, 0.1)", border: "1px solid rgba(99, 102, 241, 0.2)", borderRadius: "9999px", padding: "6px 14px", marginBottom: "24px", color: "var(--color-primary)", fontWeight: 600, fontSize: "0.85rem" }}>
+            <Zap size={14} />
+            Ethereum Sepolia Testnet Active
+          </div>
+
+          <h1 style={{ fontFamily: "var(--font-title)", fontWeight: 800, fontSize: "3.5rem", lineHeight: 1.1, letterSpacing: "-0.03em", marginBottom: "20px" }}>
+            Immutable Document <br />
+            <span style={{ background: "linear-gradient(135deg, var(--color-primary) 0%, #a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Authentication System
+            </span>
+          </h1>
+
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.15rem", lineHeight: 1.6, marginBottom: "40px", maxWidth: "600px", margin: "0 auto 40px" }}>
+            A premium full-stack document registry powered by smart contracts, Tesseract OCR parsing, and SHA-256 cryptographic hashes.
+          </p>
+
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+            <Link href="/institution" className="btn btn-primary" style={{ padding: "14px 28px", fontSize: "1.05rem" }}>
+              Access Institution Portal
+              <ArrowRight size={18} />
+            </Link>
+            <a href="http://localhost:3001" className="btn btn-secondary" style={{ padding: "14px 28px", fontSize: "1.05rem" }}>
+              Verify a Document
+            </a>
+          </div>
+        </div>
+
+        {/* Feature Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", width: "100%" }}>
+          
+          <div className="glass-card" style={{ padding: "32px 24px" }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "10px", background: "rgba(99, 102, 241, 0.1)", display: "flex", alignItems: "center", justifyBox: "center", justifyContent: "center", marginBottom: "20px", color: "var(--color-primary)" }}>
+              <Landmark size={24} />
+            </div>
+            <h3 style={{ fontFamily: "var(--font-title)", fontWeight: 700, fontSize: "1.25rem", marginBottom: "10px" }}>
+              Whitelisted Institutions
+            </h3>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.5 }}>
+              Only verified and contract-whitelisted institution wallet addresses can register official credentials.
+            </p>
+          </div>
+
+          <div className="glass-card" style={{ padding: "32px 24px" }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "10px", background: "rgba(168, 85, 247, 0.1)", display: "flex", alignItems: "center", justifyBox: "center", justifyContent: "center", marginBottom: "20px", color: "#a855f7" }}>
+              <Cpu size={24} />
+            </div>
+            <h3 style={{ fontFamily: "var(--font-title)", fontWeight: 700, fontSize: "1.25rem", marginBottom: "10px" }}>
+              AI-Powered OCR Parsing
+            </h3>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.5 }}>
+              Automatic metadata extraction using Tesseract engine to pull names, serials, and dates from images and PDFs.
+            </p>
+          </div>
+
+          <div className="glass-card" style={{ padding: "32px 24px" }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "10px", background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyBox: "center", justifyContent: "center", marginBottom: "20px", color: "var(--color-success)" }}>
+              <KeyRound size={24} />
+            </div>
+            <h3 style={{ fontFamily: "var(--font-title)", fontWeight: 700, fontSize: "1.25rem", marginBottom: "10px" }}>
+              Cryptographic Off-chain Hashing
+            </h3>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.5 }}>
+              Only the document hash is stored on-chain. Privacy is fully respected; files are never leaked to the ledger.
+            </p>
+          </div>
+
+        </div>
+
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.dev?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.dev →
-        </a>
+
+      {/* Footer */}
+      <footer style={{ padding: "32px 40px", borderTop: "1px solid var(--border-color)", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem", position: "relative", zIndex: 10 }}>
+        © 2026 DocAuth Inc. Powered by Ethereum Sepolia Testnet. All rights reserved.
       </footer>
     </div>
   );

@@ -12,9 +12,13 @@
   },
   "dependencies": {
     "@repo/ui": "*",
+    "@repo/contracts-config": "*",
+    "ethers": "^6.13.0",
+    "lucide-react": "^0.460.0",
     "next": "16.2.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-dropzone": "^14.3.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
