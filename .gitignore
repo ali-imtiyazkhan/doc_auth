@@ -35,4 +35,17 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+
+# Hardhat
+artifacts/
+cache/
+typechain-types/
+deployments/
+
+# Uploads
+uploads/
+
+# Environment (real secrets)
+.env
+!.env.example
 *.pem
